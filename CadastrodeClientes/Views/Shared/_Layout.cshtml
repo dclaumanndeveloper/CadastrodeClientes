@@ -44,5 +44,20 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+
+        $("input[name = 'cep']").change(function () {
+            var cep = $(this).val();
+            $.get("https://viacep.com.br/ws/" + cep + "/json/", function (result) {
+                $("input[ name = 'endereco']").val(result.logradouro);
+                $("input[ name = 'complemento']").val(result.completo);
+                $("input[ name = 'bairro']").val(result.bairro);
+                $("input[ name = 'cidade']").val(result.localidade);
+                $("input[ name = 'estado']").val(result.uf);
+
+            });
+        });
+
+    </script>
 </body>
 </html>
